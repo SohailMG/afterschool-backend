@@ -14,19 +14,11 @@ async function connectDb() {
 }
 
 async function storeOrderInDb(req, res, next) {
-  const {
-    name,
-    phone,
-    space,
-    _id: { $oid },
-  } = req.body;
-  req.collection.insertOne(
-    { name, phone, space, lessonId: $oid },
-    (err, result) => {
-      if (err) throw err;
-      res.send({ orderId: result.insertedId });
-    }
-  );
+  const { name, phone, space, lessonId } = req.body;
+  req.collection.insertOne({ name, phone, space, lessonId }, (err, result) => {
+    if (err) throw err;
+    res.send({ orderId: result.insertedId });
+  });
 }
 
 async function getLessonsFromDb(req, res, next) {
