@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const port = 3000;
 const { MongoClient, ObjectId } = require("mongodb");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -37,6 +36,6 @@ app.put("/collection/:name/:id", updateLessonSpaces);
 // delete mongodb document
 app.delete("/collection/:name/:id", deleteLessonFromDb);
 
-app.listen(port, () => {
+app.listen(3000 || process.env.PORT, () => {
   console.log(`Example app listening on port ${port}`);
 });
