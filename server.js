@@ -37,5 +37,5 @@ app.put("/collection/:name/:id", updateLessonSpaces);
 app.delete("/collection/:name/:id", deleteLessonFromDb);
 
 app.listen(3000 || process.env.PORT, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening on port ${3000 || process.env.PORT}`);
 });
