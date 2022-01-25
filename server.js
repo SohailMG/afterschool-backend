@@ -36,6 +36,6 @@ app.put("/collection/:name/:id", updateLessonSpaces);
 // delete mongodb document
 app.delete("/collection/:name/:id", deleteLessonFromDb);
 
-app.listen(3000 || process.env.PORT, () => {
-  console.log(`Example app listening on port ${3000 || process.env.PORT}`);
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server is running  ${process.env.PORT || 5000}`);
 });
