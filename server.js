@@ -23,8 +23,12 @@ app.use(myLogger);
 // app.use(express.static("public"));
 app.param("name", async (req, res, next, collectionName) => {
   const db = await connectDb();
-  req.collection = db.collection(collectionName);
-  return next();
+  if (collectionName === "lessons" || collectionName === "orders") {
+    req.collection = db.collection(collectionName);
+    return next();
+  } else {
+    res.status(500).send({ message: "Invalid collection" });
+  }
 });
 
 // GET /collection/lessons returns list of lessons from mongodb

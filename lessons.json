@@ -16,7 +16,7 @@
   {
     "subject": "Science",
     "location": "Hendon",
-    " price": 35.0,
+    "price": 35.0,
     "space": 5,
     "image": "images/scienceLogo.png"
   },
@@ -32,7 +32,7 @@
     "location": "Oldham",
     "price": 45.0,
     "space": 5,
-    " image": "images/artLogo.png"
+    "image": "images/artLogo.png"
   },
   {
     "subject": "Geography",
@@ -50,23 +50,23 @@
   },
   {
     "subject": "French",
-    " location": "Hendon",
-    " price": 90.0,
-    " space": 5,
+    "location": "Hendon",
+    "price": 90.0,
+    "space": 5,
     "image": "images/frenchLogo.png"
   },
   {
-    " subject": "IT",
-    " location": "Stratford",
-    " price": 40.0,
-    " space": 5,
-    " image": "images/computerLogo.png"
+    "subject": "IT",
+    "location": "Stratford",
+    "price": 40.0,
+    "space": 5,
+    "image": "images/computerLogo.png"
   },
   {
-    " subject": "Spanish",
-    " location": "Ealing",
-    " price": 10.0,
-    " space": 5,
-    " image": "images/spanishLogo.png"
+    "subject": "Spanish",
+    "location": "Ealing",
+    "price": 10.0,
+    "space": 5,
+    "image": "images/spanishLogo.png"
   }
 ]

@@ -14,16 +14,21 @@ async function connectDb() {
 }
 
 async function storeOrderInDb(req, res, next) {
-  const { name, phone, space, lessonId } = req.body;
-  req.collection.insertOne({ name, phone, space, lessonId }, (err, result) => {
-    if (err) throw err;
-    res.send({ orderId: result.insertedId });
-  });
+  const { name, phone, space, lessonId, purchaseDate } = req.body;
+  console.log(req.body);
+  req.collection.insertOne(
+    { name, phone, space, lessonId, purchaseDate },
+    (err, result) => {
+      if (err) throw err;
+      res.send({ orderId: result.insertedId });
+    }
+  );
 }
 
 async function getLessonsFromDb(req, res, next) {
   req.collection.find({}).toArray((err, result) => {
     if (err) console.log(err);
+    
     res.send(result);
   });
 }
@@ -35,7 +40,7 @@ async function updateLessonSpaces(req, res, next) {
     { safe: true, multi: false },
     (err, result) => {
       if (err) throw err;
-      res.status(200).send("updated spaces");
+      res.status(200).send({message:"Updated Spaces"});
     }
   );
 }
