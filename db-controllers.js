@@ -14,10 +14,9 @@ async function connectDb() {
 }
 
 async function storeOrderInDb(req, res, next) {
-  const { name, phone, space, lessonId, purchaseDate } = req.body;
-  console.log(req.body);
+  const { name, phone, space, lessonId, purchaseDate,total } = req.body;
   req.collection.insertOne(
-    { name, phone, space, lessonId, purchaseDate },
+    { name, phone, space, lessonId, purchaseDate,total },
     (err, result) => {
       if (err) throw err;
       res.send({ orderId: result.insertedId });
@@ -60,12 +59,10 @@ async function searchLessons(req, res, next) {
     { location: new RegExp(req.query.q, "i") },
     { subject: new RegExp(req.query.q, "i") },
   ];
-  req.collection
-    .find({$or: query})
-    .toArray((err, result) => {
-      if (err) console.log(err);
-      res.send(result);
-    });
+  req.collection.find({ $or: query }).toArray((err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  });
 }
 module.exports = {
   searchLessons,
