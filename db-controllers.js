@@ -28,7 +28,7 @@ async function storeOrderInDb(req, res, next) {
 async function getLessonsFromDb(req, res, next) {
   req.collection.find({}).toArray((err, result) => {
     if (err) console.log(err);
-    
+
     res.send(result);
   });
 }
@@ -40,7 +40,7 @@ async function updateLessonSpaces(req, res, next) {
     { safe: true, multi: false },
     (err, result) => {
       if (err) throw err;
-      res.status(200).send({message:"Updated Spaces"});
+      res.status(200).send({ message: "Updated Spaces" });
     }
   );
 }
@@ -54,7 +54,21 @@ async function deleteLessonFromDb(req, res, next) {
     }
   );
 }
+async function searchLessons(req, res, next) {
+  // filter query
+  const query = [
+    { location: new RegExp(req.query.q, "i") },
+    { subject: new RegExp(req.query.q, "i") },
+  ];
+  req.collection
+    .find({$or: query})
+    .toArray((err, result) => {
+      if (err) console.log(err);
+      res.send(result);
+    });
+}
 module.exports = {
+  searchLessons,
   deleteLessonFromDb,
   connectDb,
   updateLessonSpaces,

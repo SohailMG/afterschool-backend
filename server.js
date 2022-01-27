@@ -9,6 +9,7 @@ const {
   getLessonsFromDb,
   updateLessonSpaces,
   deleteLessonFromDb,
+  searchLessons,
 } = require("./db-controllers");
 // app.use(bodyParser());
 app.use(cors());
@@ -39,6 +40,8 @@ app.post("/collection/:name", storeOrderInDb);
 app.put("/collection/:name/:id", updateLessonSpaces);
 // delete mongodb document
 app.delete("/collection/:name/:id", deleteLessonFromDb);
+// search path
+app.get("/collection/:name/search", searchLessons);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(`Server is running  ${process.env.PORT || 5000}`);
