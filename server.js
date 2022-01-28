@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
-const { MongoClient, ObjectId } = require("mongodb");
 const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
 const bodyParser = require("body-parser");
 const {
   connectDb,
@@ -11,7 +12,6 @@ const {
   deleteLessonFromDb,
   searchLessons,
 } = require("./db-controllers");
-// app.use(bodyParser());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -42,6 +42,26 @@ app.put("/collection/:name/:id", updateLessonSpaces);
 app.delete("/collection/:name/:id", deleteLessonFromDb);
 // search path
 app.get("/collection/:name/search", searchLessons);
+
+// static files middleware
+app.use((req, res, next) => {
+  const filePath = path.join(__dirname, "images", req.url);
+  fs.stat(filePath, (err, fileInfo) => {
+    if (err) {
+      next();
+      return;
+    };
+    if (fileInfo.isFile()) res.sendFile(filePath);
+    else next();
+  });
+});
+
+// error handling middleware
+app.use((req,res)=>{
+  res.status(404).send({ message: "File not found" });
+})
+
+
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(`Server is running  ${process.env.PORT || 5000}`);
