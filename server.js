@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // api logger middleware
 const myLogger = (req, res, next) => {
-  console.log(`API REQUEST : => (${res.statusCode}) ${req.method} ${req.url}`);
+  console.log(`Incoming request : => (${res.statusCode}) ${req.method} ${req.url}`);
   next();
 };
 app.use(myLogger);
@@ -32,6 +32,10 @@ app.param("name", async (req, res, next, collectionName) => {
   }
 });
 
+// home rout
+app.get("/", (req, res) => {
+  res.status(200).send("Hello world! from server");
+});
 // GET /collection/lessons returns list of lessons from mongodb
 app.get("/collection/:name", getLessonsFromDb);
 // POST /orders
@@ -50,18 +54,16 @@ app.use((req, res, next) => {
     if (err) {
       next();
       return;
-    };
+    }
     if (fileInfo.isFile()) res.sendFile(filePath);
     else next();
   });
 });
 
 // error handling middleware
-app.use((req,res)=>{
+app.use((req, res) => {
   res.status(404).send({ message: "File not found" });
-})
-
-
+});
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(`Server is running  ${process.env.PORT || 5000}`);
