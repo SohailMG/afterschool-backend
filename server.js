@@ -21,7 +21,7 @@ const myLogger = (req, res, next) => {
   next();
 };
 app.use(myLogger);
-// app.use(express.static("public"));
+
 app.param("name", async (req, res, next, collectionName) => {
   const db = await connectDb();
   if (collectionName === "lessons" || collectionName === "orders") {
