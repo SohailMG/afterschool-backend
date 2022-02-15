@@ -11,24 +11,29 @@ const {
   updateLessonSpaces,
   deleteLessonFromDb,
   searchLessons,
-} = require("./db-controllers");
+} = require("./database");
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // api logger middleware
 const myLogger = (req, res, next) => {
-  console.log(`Incoming request : => (${res.statusCode}) ${req.method} ${req.url}`);
+  console.log(
+    `Incoming request : => (${res.statusCode}) ${req.method} ${req.url}`
+  );
   next();
 };
 app.use(myLogger);
 
+// call back trigger for rout params
 app.param("name", async (req, res, next, collectionName) => {
+  // connecting to database
   const db = await connectDb();
+  // checking
   if (collectionName === "lessons" || collectionName === "orders") {
     req.collection = db.collection(collectionName);
     return next();
   } else {
-    res.status(500).send({ message: "Invalid collection" });
+    return res.status(500).send({ message: "Invalid collection" });
   }
 });
 
